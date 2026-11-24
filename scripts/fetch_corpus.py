@@ -41,102 +41,146 @@ FILES: list[CorpusFile] = [
     CorpusFile(KARPENTER_REPO, KARPENTER_REF, f"{KARPENTER_BASE}/_index.md", "karpenter/index.md"),
     CorpusFile(KARPENTER_REPO, KARPENTER_REF, f"{KARPENTER_BASE}/faq.md", "karpenter/faq.md"),
     CorpusFile(
-        KARPENTER_REPO, KARPENTER_REF, f"{KARPENTER_BASE}/troubleshooting.md",
+        KARPENTER_REPO,
+        KARPENTER_REF,
+        f"{KARPENTER_BASE}/troubleshooting.md",
         "karpenter/troubleshooting.md",
     ),
     CorpusFile(
-        KARPENTER_REPO, KARPENTER_REF, f"{KARPENTER_BASE}/concepts/_index.md",
+        KARPENTER_REPO,
+        KARPENTER_REF,
+        f"{KARPENTER_BASE}/concepts/_index.md",
         "karpenter/concepts/index.md",
     ),
     CorpusFile(
-        KARPENTER_REPO, KARPENTER_REF, f"{KARPENTER_BASE}/concepts/disruption.md",
+        KARPENTER_REPO,
+        KARPENTER_REF,
+        f"{KARPENTER_BASE}/concepts/disruption.md",
         "karpenter/concepts/disruption.md",
     ),
     CorpusFile(
-        KARPENTER_REPO, KARPENTER_REF, f"{KARPENTER_BASE}/concepts/capacitybuffers.md",
+        KARPENTER_REPO,
+        KARPENTER_REF,
+        f"{KARPENTER_BASE}/concepts/capacitybuffers.md",
         "karpenter/concepts/capacitybuffers.md",
     ),
     CorpusFile(
-        KARPENTER_REPO, KARPENTER_REF, f"{KARPENTER_BASE}/concepts/nodepools.md",
+        KARPENTER_REPO,
+        KARPENTER_REF,
+        f"{KARPENTER_BASE}/concepts/nodepools.md",
         "karpenter/concepts/nodepools.md",
     ),
     CorpusFile(
-        KARPENTER_REPO, KARPENTER_REF, f"{KARPENTER_BASE}/concepts/nodeclasses.md",
+        KARPENTER_REPO,
+        KARPENTER_REF,
+        f"{KARPENTER_BASE}/concepts/nodeclasses.md",
         "karpenter/concepts/nodeclasses.md",
     ),
     CorpusFile(
-        KARPENTER_REPO, KARPENTER_REF, f"{KARPENTER_BASE}/concepts/scheduling.md",
+        KARPENTER_REPO,
+        KARPENTER_REF,
+        f"{KARPENTER_BASE}/concepts/scheduling.md",
         "karpenter/concepts/scheduling.md",
     ),
     CorpusFile(
-        KARPENTER_REPO, KARPENTER_REF, f"{KARPENTER_BASE}/getting-started/_index.md",
+        KARPENTER_REPO,
+        KARPENTER_REF,
+        f"{KARPENTER_BASE}/getting-started/_index.md",
         "karpenter/getting-started/index.md",
     ),
     CorpusFile(
-        KARPENTER_REPO, KARPENTER_REF, f"{KARPENTER_BASE}/tasks/_index.md",
+        KARPENTER_REPO,
+        KARPENTER_REF,
+        f"{KARPENTER_BASE}/tasks/_index.md",
         "karpenter/tasks/index.md",
     ),
     CorpusFile(
-        KARPENTER_REPO, KARPENTER_REF, f"{KARPENTER_BASE}/tasks/managing-amis.md",
+        KARPENTER_REPO,
+        KARPENTER_REF,
+        f"{KARPENTER_BASE}/tasks/managing-amis.md",
         "karpenter/tasks/managing-amis.md",
     ),
     CorpusFile(
-        KARPENTER_REPO, KARPENTER_REF, f"{KARPENTER_BASE}/tasks/monitoring-ec2-api-usage.md",
+        KARPENTER_REPO,
+        KARPENTER_REF,
+        f"{KARPENTER_BASE}/tasks/monitoring-ec2-api-usage.md",
         "karpenter/tasks/monitoring-ec2-api-usage.md",
     ),
     CorpusFile(
-        KARPENTER_REPO, KARPENTER_REF, f"{KARPENTER_BASE}/tasks/odcrs.md",
+        KARPENTER_REPO,
+        KARPENTER_REF,
+        f"{KARPENTER_BASE}/tasks/odcrs.md",
         "karpenter/tasks/odcrs.md",
     ),
     CorpusFile(
-        KARPENTER_REPO, KARPENTER_REF, f"{KARPENTER_BASE}/upgrading/_index.md",
+        KARPENTER_REPO,
+        KARPENTER_REF,
+        f"{KARPENTER_BASE}/upgrading/_index.md",
         "karpenter/upgrading/index.md",
     ),
     CorpusFile(
-        KARPENTER_REPO, KARPENTER_REF, f"{KARPENTER_BASE}/reference/_index.md",
+        KARPENTER_REPO,
+        KARPENTER_REF,
+        f"{KARPENTER_BASE}/reference/_index.md",
         "karpenter/reference/index.md",
     ),
     # --- KEDA (Kubernetes Event-Driven Autoscaling) ---
     CorpusFile(KEDA_REPO, KEDA_REF, f"{KEDA_BASE}/_index.md", "keda/index.md"),
     CorpusFile(KEDA_REPO, KEDA_REF, f"{KEDA_BASE}/concepts/_index.md", "keda/concepts/index.md"),
     CorpusFile(
-        KEDA_REPO, KEDA_REF, f"{KEDA_BASE}/concepts/scaling-deployments.md",
+        KEDA_REPO,
+        KEDA_REF,
+        f"{KEDA_BASE}/concepts/scaling-deployments.md",
         "keda/concepts/scaling-deployments.md",
     ),
     CorpusFile(
-        KEDA_REPO, KEDA_REF, f"{KEDA_BASE}/concepts/scaling-jobs.md",
+        KEDA_REPO,
+        KEDA_REF,
+        f"{KEDA_BASE}/concepts/scaling-jobs.md",
         "keda/concepts/scaling-jobs.md",
     ),
     CorpusFile(
-        KEDA_REPO, KEDA_REF, f"{KEDA_BASE}/concepts/authentication.md",
+        KEDA_REPO,
+        KEDA_REF,
+        f"{KEDA_BASE}/concepts/authentication.md",
         "keda/concepts/authentication.md",
     ),
     CorpusFile(
-        KEDA_REPO, KEDA_REF, f"{KEDA_BASE}/concepts/external-scalers.md",
+        KEDA_REPO,
+        KEDA_REF,
+        f"{KEDA_BASE}/concepts/external-scalers.md",
         "keda/concepts/external-scalers.md",
     ),
     CorpusFile(
-        KEDA_REPO, KEDA_REF, f"{KEDA_BASE}/concepts/admission-webhooks.md",
+        KEDA_REPO,
+        KEDA_REF,
+        f"{KEDA_BASE}/concepts/admission-webhooks.md",
         "keda/concepts/admission-webhooks.md",
     ),
     CorpusFile(
-        KEDA_REPO, KEDA_REF, f"{KEDA_BASE}/concepts/troubleshooting.md",
+        KEDA_REPO,
+        KEDA_REF,
+        f"{KEDA_BASE}/concepts/troubleshooting.md",
         "keda/concepts/troubleshooting.md",
     ),
     CorpusFile(KEDA_REPO, KEDA_REF, f"{KEDA_BASE}/deploy.md", "keda/deploy.md"),
+    CorpusFile(KEDA_REPO, KEDA_REF, f"{KEDA_BASE}/scalers/aws-sqs.md", "keda/scalers/aws-sqs.md"),
     CorpusFile(
-        KEDA_REPO, KEDA_REF, f"{KEDA_BASE}/scalers/aws-sqs.md", "keda/scalers/aws-sqs.md"
-    ),
-    CorpusFile(
-        KEDA_REPO, KEDA_REF, f"{KEDA_BASE}/scalers/aws-cloudwatch.md",
+        KEDA_REPO,
+        KEDA_REF,
+        f"{KEDA_BASE}/scalers/aws-cloudwatch.md",
         "keda/scalers/aws-cloudwatch.md",
     ),
     CorpusFile(
-        KEDA_REPO, KEDA_REF, f"{KEDA_BASE}/scalers/aws-dynamodb.md",
+        KEDA_REPO,
+        KEDA_REF,
+        f"{KEDA_BASE}/scalers/aws-dynamodb.md",
         "keda/scalers/aws-dynamodb.md",
     ),
     CorpusFile(
-        KEDA_REPO, KEDA_REF, f"{KEDA_BASE}/scalers/aws-dynamodb-streams.md",
+        KEDA_REPO,
+        KEDA_REF,
+        f"{KEDA_BASE}/scalers/aws-dynamodb-streams.md",
         "keda/scalers/aws-dynamodb-streams.md",
     ),
     CorpusFile(
@@ -174,7 +218,7 @@ def download(file: CorpusFile, out_dir: Path) -> bool:
     dest = out_dir / file.local_path
     dest.parent.mkdir(parents=True, exist_ok=True)
     try:
-        with urllib.request.urlopen(url, timeout=20) as response:  # noqa: S310
+        with urllib.request.urlopen(url, timeout=20) as response:
             data = response.read()
     except urllib.error.HTTPError as exc:
         print(f"  SKIP {file.local_path}: HTTP {exc.code}", file=sys.stderr)

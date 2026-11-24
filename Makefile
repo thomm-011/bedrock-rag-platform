@@ -37,7 +37,7 @@ test:
 test-integration:
 	$(COMPOSE) up -d db
 	@until $(COMPOSE) ps db | grep -q healthy; do sleep 1; done
-	RAG_TEST_DATABASE_URL=postgresql://rag:rag@localhost:5432/rag \
+	RAG_DB_HOST=localhost RAG_DB_PORT=5432 RAG_DB_USER=rag RAG_DB_PASSWORD=rag RAG_DB_NAME=rag \
 		uv run pytest tests/integration -m integration -v
 
 lint:

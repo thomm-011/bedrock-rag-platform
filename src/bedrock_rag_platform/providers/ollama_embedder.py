@@ -13,7 +13,7 @@ class OllamaEmbedder:
         base_url: str = "http://127.0.0.1:11434",
         model: str = "nomic-embed-text",
         dimensions: int = 768,
-        timeout_s: float = 60.0,
+        timeout_s: float = 120.0,
     ) -> None:
         self.base_url = base_url.rstrip("/")
         self.model = model

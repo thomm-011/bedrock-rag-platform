@@ -29,7 +29,11 @@ services:
       # Ollama server running on the HOST (not in compose) - Ollama is not
       # containerized here because it needs the host's CPU/RAM directly.
       RAG_OLLAMA_BASE_URL: "http://host.docker.internal:11434"
-      RAG_DATABASE_URL: "postgresql://rag:rag@db:5432/rag"
+      RAG_DB_HOST: "db"
+      RAG_DB_PORT: "5432"
+      RAG_DB_USER: "rag"
+      RAG_DB_PASSWORD: "rag"
+      RAG_DB_NAME: "rag"
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:

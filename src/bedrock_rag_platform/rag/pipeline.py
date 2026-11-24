@@ -17,6 +17,13 @@ from bedrock_rag_platform.interfaces.protocols import (
 )
 from bedrock_rag_platform.rag.prompts import build_grounded_prompt, build_no_rag_prompt
 
+# nomic-embed-text is trained with asymmetric task prefixes; omitting them
+# measurably hurts retrieval quality (queries and documents land in
+# different regions of the embedding space). Other embedding models are
+# typically prefix-free, so this is a no-op for them.
+EMBED_DOCUMENT_PREFIX = "search_document: "
+EMBED_QUERY_PREFIX = "search_query: "
+
 
 class IngestResult(BaseModel):
     documents_loaded: int
@@ -57,6 +64,7 @@ class RagPipeline:
         chunker: HeadingAwareChunker | None = None,
         max_context_chars: int = 6000,
         num_predict: int = 256,
+        embed_batch_size: int = 16,
     ) -> None:
         self.llm = llm
         self.embedder = embedder
@@ -65,6 +73,7 @@ class RagPipeline:
         self.chunker = chunker or HeadingAwareChunker()
         self.max_context_chars = max_context_chars
         self.num_predict = num_predict
+        self.embed_batch_size = embed_batch_size
 
     async def ingest_path(self, path: Path) -> IngestResult:
         documents = self.loader.load(path)
@@ -75,8 +84,15 @@ class RagPipeline:
         if not all_chunks:
             return IngestResult(documents_loaded=len(documents), chunks_created=0, chunks_stored=0)
 
-        texts = [c.text for c in all_chunks]
-        embeddings = await self.embedder.embed(texts)
+        # Batch embedding calls: a single request with hundreds of texts can
+        # exceed the HTTP client timeout on CPU-only Ollama. Small batches
+        # keep each request fast and let progress survive a slow model.
+        texts = [EMBED_DOCUMENT_PREFIX + c.text for c in all_chunks]
+        embeddings: list[list[float]] = []
+        for start in range(0, len(texts), self.embed_batch_size):
+            batch = texts[start : start + self.embed_batch_size]
+            embeddings.extend(await self.embedder.embed(batch))
+
         for chunk, embedding in zip(all_chunks, embeddings, strict=True):
             chunk.embedding = embedding
 
@@ -88,7 +104,7 @@ class RagPipeline:
         )
 
     async def retrieve(self, question: str, top_k: int) -> list[SearchResult]:
-        [query_embedding] = await self.embedder.embed([question])
+        [query_embedding] = await self.embedder.embed([EMBED_QUERY_PREFIX + question])
         return await self.vector_store.search(query_embedding, top_k)
 
     async def ask(self, question: str, top_k: int) -> AskResult:

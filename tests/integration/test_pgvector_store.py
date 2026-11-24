@@ -8,16 +8,18 @@ FakeEmbedder-sized dimension (see .github/workflows/ci.yml).
 
 from __future__ import annotations
 
-import os
-
 import pytest
 
+from bedrock_rag_platform.config import Settings
 from bedrock_rag_platform.interfaces.models import Chunk
 from bedrock_rag_platform.providers.pgvector_store import PgVectorStore
 
 pytestmark = pytest.mark.integration
 
-DSN = os.environ.get("RAG_TEST_DATABASE_URL", "postgresql://rag:rag@localhost:5432/rag")
+# Settings() reads RAG_DB_HOST/PORT/USER/PASSWORD/NAME from the environment
+# (set by `make test-integration`), defaulting to the same local compose
+# credentials used everywhere else in this repo.
+DSN = Settings().database_url
 DIM = 8
 
 
