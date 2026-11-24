@@ -1,0 +1,39 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: rag
+      POSTGRES_PASSWORD: rag
+      POSTGRES_DB: rag
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rag -d rag"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    environment:
+      # host.docker.internal + extra_hosts below let the container reach the
+      # Ollama server running on the HOST (not in compose) - Ollama is not
+      # containerized here because it needs the host's CPU/RAM directly.
+      RAG_OLLAMA_BASE_URL: "http://host.docker.internal:11434"
+      RAG_DATABASE_URL: "postgresql://rag:rag@db:5432/rag"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./data:/home/app/data:ro
+
+volumes:
+  pgdata:
