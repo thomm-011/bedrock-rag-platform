@@ -11,11 +11,12 @@ not a rewrite.
 Asked **without** retrieval, a small local model (`llama3.2:3b`) answers:
 
 > **Q: What is Karpenter?**
-> **A (no RAG):** *"Karpenter is a minimalist furniture brand known for
-> simple, functional designs..."*
+> **A (no RAG):** *"The Carpenter is a position in the British Armed
+> Forces, equivalent to a Sergeant."*
 
-It confidently hallucinates — Karpenter is a Kubernetes node-autoscaler, not
-a furniture brand. Asked **with** retrieval over the actual Karpenter docs:
+It confidently hallucinates (and mis-hears "Karpenter" as "Carpenter") —
+Karpenter is a Kubernetes node-autoscaler, not a military rank. Asked
+**with** retrieval over the actual Karpenter docs:
 
 > **A (RAG):** *"Karpenter is an open-source node lifecycle management
 > project built for Kubernetes. It watches for unschedulable pods, evaluates
@@ -107,13 +108,30 @@ capital of France?"). `eval/run_eval.py` computes:
 
 ### Real results (local run, `llama3.2:3b` + `nomic-embed-text`, CPU)
 
-See `eval/report.md` / `eval/report.json` for the full run and per-question
-breakdown. Headline numbers are filled in there after `make eval` runs;
-generation (LLM calls) is CPU-bound and slow (~8-15s per answer with
-`num_predict=256`), so by default `run_eval.py` only generates real answers
-for the 5 unanswerable rows plus a 10-question sample (`--full-generation`
-runs all 35 if you have time). Retrieval metrics always cover the full
-answerable set since they need no LLM call.
+| Metric | Value |
+|---|---|
+| Hit@4 (retrieval, 30 answerable questions) | 96.67% |
+| Recall@4 | 93.06% |
+| MRR | 0.894 |
+| Abstention correct (5 unanswerable questions) | 5/5 |
+| Full eval wall time (10-question generation sample) | 267s |
+
+Before/after on the demo question, straight from `eval/report.md`:
+
+- **No-RAG:** *"The Carpenter is a position in the British Armed Forces,
+  equivalent to a Sergeant."*
+- **RAG:** *"Karpenter is an open-source node lifecycle management project
+  built for Kubernetes [1]. It is designed to improve the efficiency and
+  cost of running workloads on a Kubernetes cluster by automatically
+  provisioning and managing nodes [1]."*
+
+Full per-question retrieval breakdown and all sampled generated answers are
+in `eval/report.md` / `eval/report.json`. Generation (LLM calls) is
+CPU-bound and slow (~6-20s per answer with `num_predict=256`), so by default
+`run_eval.py` only generates real answers for the 5 unanswerable rows plus a
+10-question sample (`--full-generation` runs all 35 if you have time).
+Retrieval metrics always cover the full 30-question answerable set since
+they need no LLM call.
 
 ## Design decisions (ADR-style)
 

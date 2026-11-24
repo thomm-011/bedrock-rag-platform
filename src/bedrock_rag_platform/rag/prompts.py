@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 SYSTEM_INSTRUCTIONS = (
-    "You are a documentation assistant. Answer the QUESTION using ONLY the "
-    "numbered CONTEXT excerpts below. Cite every claim with the excerpt "
-    "number in square brackets, e.g. [1] or [1][3]. If the context does not "
-    'contain enough information to answer, reply exactly: "I don\'t know." '
-    "Do not use outside knowledge. Be concise."
+    "You are a documentation assistant. Using ONLY the numbered CONTEXT "
+    "excerpts below, write a complete answer of 1-3 sentences to the "
+    "QUESTION. Cite the excerpt number in square brackets after each claim, "
+    "e.g. 'Karpenter provisions nodes automatically [1].' If the context "
+    "does not contain enough information to answer, reply exactly: "
+    '"I don\'t know." Do not use outside knowledge, and do not reply with '
+    "only a citation marker — always include the sentence."
 )
 
 
