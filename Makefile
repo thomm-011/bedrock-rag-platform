@@ -53,3 +53,7 @@ typecheck:
 
 build:
 	docker build -t bedrock-rag-platform:local .
+
+pull-models: ## Pull the Ollama models into the compose ollama service
+	$(COMPOSE) exec ollama ollama pull llama3.2:3b
+	$(COMPOSE) exec ollama ollama pull nomic-embed-text

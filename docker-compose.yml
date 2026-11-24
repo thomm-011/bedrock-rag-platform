@@ -7,7 +7,7 @@ services:
       POSTGRES_PASSWORD: rag
       POSTGRES_DB: rag
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -16,19 +16,36 @@ services:
       timeout: 5s
       retries: 10
 
+  ollama:
+    image: ollama/ollama:0.40.17
+    restart: unless-stopped
+    # Not published to the host: only the api container talks to it.
+    volumes:
+      # Defaults to a named volume (run `make pull-models` once).
+      # To reuse models already pulled by a host Ollama, set in .env:
+      #   OLLAMA_MODELS_DIR=${HOME}/.ollama/models
+      - ${OLLAMA_MODELS_DIR:-ollama-models}:/root/.ollama/models
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
   api:
     build: .
     restart: unless-stopped
     depends_on:
       db:
         condition: service_healthy
+      ollama:
+        condition: service_healthy
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"
     environment:
-      # host.docker.internal + extra_hosts below let the container reach the
-      # Ollama server running on the HOST (not in compose) - Ollama is not
-      # containerized here because it needs the host's CPU/RAM directly.
-      RAG_OLLAMA_BASE_URL: "http://host.docker.internal:11434"
+      # Defaults to the compose `ollama` service. To use an Ollama running on
+      # the host instead (e.g. native Metal on macOS), set in .env:
+      #   COMPOSE_OLLAMA_URL=http://host.docker.internal:11434
+      RAG_OLLAMA_BASE_URL: "${COMPOSE_OLLAMA_URL:-http://ollama:11434}"
       RAG_DB_HOST: "db"
       RAG_DB_PORT: "5432"
       RAG_DB_USER: "rag"
@@ -41,3 +58,4 @@ services:
 
 volumes:
   pgdata:
+  ollama-models:

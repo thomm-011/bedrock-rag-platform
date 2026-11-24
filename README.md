@@ -182,6 +182,11 @@ they need no LLM call.
 
 ## Limitations (honest)
 
+- Retrieval misses on some phrasings: e.g. "How does KEDA scale a deployment
+  based on an SQS queue?" retrieves the generic KEDA concept pages instead of
+  `aws-sqs.md`, so the model (correctly) abstains with "I don't know".
+  Planned fix in the next milestone: chunk-size tuning, larger `top_k` with
+  re-ranking, and hybrid (BM25 + vector) retrieval.
 - CPU-only `llama3.2:3b` is slow and a weak reasoner; answers are short and
   sometimes mechanically cite the right source while slightly misstating a
   detail. This is a demo-scale model, not a production LLM choice.

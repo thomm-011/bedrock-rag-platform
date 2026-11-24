@@ -16,7 +16,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 COPY src/ src/
 
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --locked --no-dev
+    uv sync --locked --no-dev --no-editable
 
 ## ---- Runtime ------------------------------------------------------------
 FROM python:3.12-slim-bookworm AS runtime
